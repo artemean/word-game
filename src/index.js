@@ -23,14 +23,13 @@ function App() {
   console.log(name);
 
   const handleClick = text => e => {
-    console.log('click');
-    let nextName = images[getRandomInt(0, images.length)].name;
+    let nextName = images[getRandomInt(0, images.length - 1)].name;
     while (nextName === name) {
-      nextName = images[getRandomInt(0, images.length)].name;
+      nextName = images[getRandomInt(0, images.length - 1)].name;
       setName(nextName);
     }
-    setName(images[getRandomInt(0, images.length)].name);
-    
+    setName(images[getRandomInt(0, images.length - 1)].name);
+
     if (text === name) {
       setCorrectAnswersCount(correctAnswersCount + 1);
     }
@@ -47,14 +46,19 @@ function App() {
     <div className="App">
       <h1>Select correct word</h1>
       <img src={img.image} alt="img" />
-      <div>Correct: {correctAnswersCount} out of {answersCount}</div>
-      <div class="result">{result ? "True!" : "False!"}</div>
+      <div>
+        Correct: {correctAnswersCount} out of {answersCount}
+      </div>
+      <div className="result">{result ? "True!" : "False!"}</div>
       <ul className="answers">
         {images.map(image => (
           <Button key={image.name} text={image.name} onClick={handleClick} />
         ))}
       </ul>
-      <button className="reset-button" onClick={reset}>Reset</button>
+      <br />
+      <button className="reset-button" onClick={reset}>
+        Reset
+      </button>
     </div>
   );
 }
